@@ -46,11 +46,33 @@ class Point {
     }
 }
 
+
+class Circle {
+    Point centre;
+    double radius;
+
+    private Circle(Point p, double radius) {
+        this.radius = radius;
+        this.centre = p;
+    }
+
+    public static void getCircle(Point p, double radius) {
+        Circle c = new Circle(p, radius);
+        System.out.println("Circle of radius %.1f centered at point (%.3f, %.3f)", radius, p.x, p.y);
+    }
+
+    public static void createCircle(Point p1, Point p2) {
+
+    }
+
+}
+
 public class CircleTest {
     public static void main(String[] args) {
         Point p1 = new Point(1.0, 1.0);
         Point p2 = new Point(0, 0);
         Point p3 = new Point(-1, -1);
         System.out.println(p2.moveTo(Math.PI/2, 1.0));
+        Circle.getCircle(new Point(0.0, 0.0), 1.0);
     }
 }
