@@ -58,21 +58,35 @@ class Circle {
 
     public static void getCircle(Point p, double radius) {
         Circle c = new Circle(p, radius);
-        System.out.println("Circle of radius %.1f centered at point (%.3f, %.3f)", radius, p.x, p.y);
+        System.out.printf("%nCircle of radius %.1f centered at point (%.3f, %.3f)%n", radius, p.x, p.y);
     }
 
-    public static void createCircle(Point p1, Point p2) {
-
+    public static void createCircle(Point p1, Point p2, double radius) {
+        double angle = p1.angleTo(p2);
+        Point midPt = p1.midPoint(p2);
+        double mqLen = midPt.distanceFrom(p1);
+        double mcLen = Math.sqrt(radius*radius - mqLen*mqLen);
+        Point centre = midPt.moveTo(angle, mcLen);
+        if(p1.x==p2.x && p1.y==p2.y) {
+            System.out.println("null");
+            return;
+        } else if(mqLen > radius) {
+            System.out.println("null");
+            return;
+        } else {
+            Circle c = new Circle(centre, radius);
+            System.out.printf("%nCircle of radius %.1f centered at point (%.3f, %.3f)%n", radius, centre.x, centre.y);
+        }
     }
 
 }
 
 public class CircleTest {
     public static void main(String[] args) {
-        Point p1 = new Point(1.0, 1.0);
-        Point p2 = new Point(0, 0);
-        Point p3 = new Point(-1, -1);
-        System.out.println(p2.moveTo(Math.PI/2, 1.0));
-        Circle.getCircle(new Point(0.0, 0.0), 1.0);
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(2.0, 0);
+        Point p3 = new Point(3, 0);
+        // System.out.println(p2.moveTo(Math.PI/2, 1.0));
+        Circle.createCircle(p1, p3, 1);
     }
 }
