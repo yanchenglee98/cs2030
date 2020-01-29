@@ -10,7 +10,7 @@ public class Main {
         Point midPt = p1.midPoint(p2);
         double mqLen = midPt.distanceFrom(p2);
         double mcLen = Math.sqrt(radius*radius - mqLen*mqLen);
-        Point centre = midPt.moveTo2(angle, mcLen);
+        Point centre = midPt.moveTo(angle+(Math.PI/2), mcLen);
         if(p1.x==p2.x && p1.y==p2.y) {
             return null;
         } else if(mqLen > radius) {
@@ -35,14 +35,22 @@ public class Main {
        for(int i=0; i<numberOfPoints-1; i++) {
             for(int j=i+1; j<numberOfPoints; j++) {
                 if(points[i].distanceFrom(points[j])<=2) {
-                     Circle c1 = Main.createCircle(points[i], points[j], 1);
-                     largest = Math.max(c1.coverage(points), largest);
-                     Circle c2 = Main.createCircle(points[j], points[i], 1);
-                     largest = Math.max(c2.coverage(points), largest);
+                    Circle c1 = Main.createCircle(points[i], points[j], 1);
+                    Circle c2 = Main.createCircle(points[j], points[i], 1);
+                    int x;
+                    if(c1.coverage(points) > c2.coverage(points)) {
+                        x = c1.coverage(points);
+                    } else {
+                        x = c2.coverage(points);
+                    }
+                    if(x>largest) {
+                        largest=x;
+                    }
                 }
             }
         }
         System.out.println("Maximum Disc Coverage: " + largest);
         sc.close();
+        // System.out.println(Main.createCircle(new Point(0,1), new Point(0,0), 1));
     }
 }

@@ -18,7 +18,7 @@ public class Circle {
     public int coverage(Point[] arr) {  
         int counter = 0;
         for(Point i: arr) {
-            if(centre.distanceFrom(i)<=radius) {
+            if(this.centre.distanceFrom(i)<=this.radius) {
                 counter++;
             }
         }
