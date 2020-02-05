@@ -1,11 +1,16 @@
-public class RecycledLoader extends Loader.java {
+public class RecycledLoader extends Loader {
     private final boolean recycled;
     private final int ServiceTime;
-
+    
+    RecycledLoader(int ID, boolean avail, boolean recycled) {
+        super(ID, avail);
+        this.recycled = recycled;
+        this.ServiceTime = 0;
+    }
     RecycledLoader(int ID, boolean avail, Cruise serving, boolean recycled) {
         super(ID, avail, serving);
         this.ServiceTime = serving.getServiceCompletionTime() + 60;
-        this.recycled = recycled     
+        this.recycled = recycled; 
     }
 
     @Override
@@ -32,6 +37,13 @@ public class RecycledLoader extends Loader.java {
         } else {
             return null;
         }
+    }
+
+    /**
+     * @return the recycled
+     */
+    public boolean isRecycled() {
+        return recycled;
     }
 
     @Override 

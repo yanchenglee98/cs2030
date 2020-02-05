@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Scanner;
 
 public class Main6 {
     public static void main(String[] args) {
@@ -31,9 +32,9 @@ public class Main6 {
 				boolean isLoaded = false;
 				for(int j=0; j<loaders.size();j++) {
                     if(loaders.get(j).canServe(cr)) { // if loader is avail to serve
-                        if(loaders.get(j).isRecycled()) {
-                            System.out.println(loaders.get(j).serve(cr.extendServiceTimeBySixty()));
-                            loaders.set(j, loaders.get(j).serve(cr.extendServiceTimeBySixty())); // replace avail loader with used loader
+                        if(loaders.get(j) instanceof RecycledLoader) {
+                            System.out.println(loaders.get(j).serve(cr));
+                            loaders.set(j, loaders.get(j).serve(cr)); // replace avail loader with used loader
                             isLoaded = true;
                             break;
                         } else {
@@ -48,8 +49,8 @@ public class Main6 {
 				if(!isLoaded) {
                     if((counter+1)%3==0) {
                         counter++;
-                        loaders.add(new Loader(counter, true).serve(cr.extendServiceTimeBySixty()));
-                        System.out.println(new Loader(counter, true).serve(cr.extendServiceTimeBySixty()));
+                        loaders.add(new RecycledLoader(counter, true, true).serve(cr));
+                        System.out.println(new RecycledLoader(counter, true, true).serve(cr));
                     } else {
                         counter++;
                         loaders.add(new Loader(counter).serve(cr));
@@ -58,5 +59,6 @@ public class Main6 {
 				}
 			}
 		}
+		sc.close();
 	}
 }
