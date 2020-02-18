@@ -40,20 +40,20 @@ public class Box<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    // @SuppressWarnings("unchecked")
     @Override 
     public boolean equals(Object o) {
         if(this==o) {
             return true;
         } if(o instanceof Box) {
-            Box<T> B = (Box<T>) o;
+            Box<?> B = (Box<?>) o;
             return t.equals(B.get());
         } else {
             return false;
         }
     }
     
-    @SuppressWarnings("unchecked")
+    // @SuppressWarnings("unchecked")
     public Box<T> filter(BooleanCondition<? super T> bool) {
         if(bool.test(this.t)) {
             return this;
@@ -67,11 +67,10 @@ public class Box<T> {
         if (this.t == null ) {
             return (Box<U>) EMPTY_BOX;
         } else {
-            return Box.ofNullable(transformer.transform(t));
+            return (Box<U>)Box.ofNullable(transformer.transform(t));
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public String toString() {
         if (this.t==null) {
