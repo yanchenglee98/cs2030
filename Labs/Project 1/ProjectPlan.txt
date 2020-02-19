@@ -1,0 +1,29 @@
+Level 1
+- Customer class
+    - int ID
+    - int arrivalTime
+    - String toString() { return ID + " arrives at " + arrivalTime}
+- main class
+    - PriorityQueue
+    - Scanner
+    - while(sc.hasNext()) {
+            // store customer into priorityqueue
+    }
+
+Level 2
+- Server class
+    - Customer serving // customer its currently serving
+    - int timeOfCompletion // time once it has finished serving the customer
+    - Cusomer waiting // customer that is on wait list
+    - Server serve(Customer c) {
+        if(serving==null) {
+            serving = c;
+            return new Server // return new server with new timeOf completion
+            // serve
+        } else if (waiting==null) {
+            waiting = c;
+            // move to waiting list
+        } else {
+            // customer will leave
+        }
+    }   
