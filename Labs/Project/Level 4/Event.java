@@ -2,13 +2,11 @@ public class Event {
     private final Customer customer;
     private final double time;
     private final String state;
-    private final int stateID; // used in comparator for comparing states
 
-    public Event(Customer customer, double time, String state, int stateID) {
+    public Event(Customer customer, double time, String state) {
         this.customer = customer;
         this.time = time;
         this.state = state;
-        this.stateID = stateID;
     }
 
     public double getTime() {
@@ -21,10 +19,6 @@ public class Event {
 
     public String getState() {
         return state;
-    }
-
-    public int getStateID() {
-        return stateID;
     }
 
     @Override 
