@@ -1,27 +1,7 @@
 import java.util.Scanner;
 import java.util.PriorityQueue;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Arrays;
-
-enum States {
-    ARRIVES("arrives"),
-    SERVED("served"),
-    LEAVES("leaves"),
-    DONE("done");
-
-    private final String state;
-
-    States(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return state;
-    }
-}
 
 public class Main {
     public static void main(String[] args) {
@@ -46,7 +26,7 @@ public class Main {
 
         System.out.println("# Adding arrivals"); // print out number of arrivals
         for (Customer c: queue) {
-            Event log = new Event(c, c.getTimeOfArrival(), arr[0].getState());
+            Event log = new Event(c, c.getTimeOfArrival(), arr[0]);
             System.out.println(log);
             eventLog.add(log);
         }
@@ -76,7 +56,7 @@ public class Main {
                 }
                 // customer arrives and can be served
                 System.out.println("# Get next event: " + eventLog.poll()); // remove first event from event log
-                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[1].getState())); // update eventLog on when serving is completed
+                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[1])); // update eventLog on when serving is completed
                 
                 // print array
                 Event[] events = eventLog.toArray(new Event[eventLog.size()]);
@@ -92,7 +72,7 @@ public class Main {
                 // customer is served
                 // update event log after serving
                 System.out.println("# Get next event: " + eventLog.poll()); // remove first event from event log
-                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival()+1.0, arr[3].getState())); // update eventLog on when serving is completed
+                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival()+1.0, arr[3])); // update eventLog on when serving is completed
                 
                 // print array
                 events = eventLog.toArray(new Event[eventLog.size()]);
@@ -110,7 +90,7 @@ public class Main {
 
                 // customer arrives and cannot be served
                 System.out.println("# Get next event: " + eventLog.poll()); // remove first event from event log
-                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2].getState())); // update eventLog on when serving is completed
+                eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2])); // update eventLog on when serving is completed
                 
                 // print array
                 Event[] events = eventLog.toArray(new Event[eventLog.size()]);

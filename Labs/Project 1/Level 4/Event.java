@@ -1,9 +1,9 @@
 public class Event {
     private final Customer customer;
     private final double time;
-    private final String state;
+    private final States state;
 
-    public Event(Customer customer, double time, String state) {
+    public Event(Customer customer, double time, States state) {
         this.customer = customer;
         this.time = time;
         this.state = state;
@@ -18,11 +18,11 @@ public class Event {
     }
 
     public String getState() {
-        return state;
+        return state.getState();
     }
 
     @Override 
     public String toString() {
-        return String.format("%.3f %d %s", time, customer.getID(), state);
+        return String.format("%.3f %d %s", time, customer.getID(), state.getState());
     }
 }
