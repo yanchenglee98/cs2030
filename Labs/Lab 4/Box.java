@@ -31,10 +31,10 @@ public class Box<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+   // @SuppressWarnings("unchecked")
     public static <T> Box<T> ofNullable(T t) {
         if(t==null) { 
-            return (Box<T>) EMPTY_BOX;
+            return Box.<T>empty();
         } else {
             return new Box<>(t);
         }
@@ -44,7 +44,9 @@ public class Box<T> {
     public boolean equals(Object o) {
         if(this==o) {
             return true;
-        } if(o instanceof Box) {
+        } else if (this.t == null) {
+            return false;
+        } else if (o instanceof Box) {
             Box<?> B = (Box<?>) o;
             return t.equals(B.get());
         } else {
@@ -52,21 +54,21 @@ public class Box<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public Box<T> filter(BooleanCondition<? super T> bool) {
         if(bool.test(this.t)) {
             return this;
         } else {
-            return (Box<T>) EMPTY_BOX;
+            return Box.<T>empty();
         }
     }
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public <U> Box<U> map(Transformer<? super T, U> transformer) {
         if (this.t == null ) {
-            return (Box<U>) EMPTY_BOX;
+            return Box.<U>empty();
         } else {
-            return Box.ofNullable(transformer.transform(t));
+            return Box.<U>ofNullable(transformer.transform(t));
         }
     }
 
