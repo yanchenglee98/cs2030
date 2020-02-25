@@ -35,35 +35,43 @@ public class Shop {
 
         while (it.hasNext()) {
             Customer currentCustomer = queue.poll();
+            double currentTime = currentCustomer.getTimeOfArrival();
             //update server when currentCustomer timeofarrival > the server nextservicetime
-            if (server.getServing() != null && currentCustomer.getTimeOfArrival() >= (server.getNextServiceTime())) { 
+            if (server.getServing() != null && currentTime >= (server.getNextServiceTime())) { 
                 
                 if (server.getWaiting() == null) { 
                     //if server has finished serving customer, immediately serve currentCustomer
                     server = new Server(currentCustomer);
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2])); 
+                    eventLog.add(new Event(currentCustomer, currentTime, arr[2])); 
                     // add served log
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival() + 1.0, arr[4]));
+                    eventLog.add(new Event(currentCustomer, currentTime + 1.0, arr[4]));
                     // add done log
 
                 } else {
-                    if (currentCustomer.getTimeOfArrival() >= server.getNextServiceTime() + 1.0) { 
+                    if (currentTime >= server.getNextServiceTime() + 1.0) { 
                         // if server has served both serving and waiting customers
                         // when currentCustomer arrives
                         server = new Server(currentCustomer);
-                        Event served = new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2]); 
+                        Event served = new Event(currentCustomer, currentTime, arr[2]); 
+                        double serviceTime = server.getNextServiceTime();
+                        Event done = new Event(currentCustomer, serviceTime, arr[4]);
                         // serve immediately
                         eventLog.add(served); // add when it will be served log
-                        eventLog.add(new Event(currentCustomer, server.getNextServiceTime(), arr[4])); 
+                        eventLog.add(done); 
                         // add when it will be done log
                     } else { 
                         // if server still serving waiting customer when current customer arrives
-                        server = new Server(server.getWaiting(), currentCustomer, server.getNextServiceTime());
-                        Event wait = new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[1]); // wait
-                        Event served = new Event(currentCustomer, server.getNextServiceTime(), arr[2]); // serve
+                        double serviceTime = server.getNextServiceTime();
+                        server = new Server(server.getWaiting(), currentCustomer, serviceTime);
+                        Event wait = new Event(currentCustomer, currentTime, arr[1]); 
+                        // add wait log
+                        serviceTime = server.getNextServiceTime(); // update serviceTime
+                        Event served = new Event(currentCustomer, serviceTime, arr[2]); 
+                        // add serve log
+                        Event done = new Event(currentCustomer, serviceTime + 1.0, arr[4]);
                         eventLog.add(wait); // add waits log
                         eventLog.add(served); // add when it will be served log
-                        eventLog.add(new Event(currentCustomer, server.getNextServiceTime() + 1.0, arr[4])); 
+                        eventLog.add(done); 
                         // add when it will be done log
                         
                         // update waiting time
@@ -74,23 +82,30 @@ public class Shop {
             } else {
                 if (server.canServe(currentCustomer)) { // if server can serve
                     server = server.serve(currentCustomer);
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2])); // add served log
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival() + 1.0, arr[4])); // add done log
+                    eventLog.add(new Event(currentCustomer, currentTime, arr[2])); 
+                    // add served log
+                    eventLog.add(new Event(currentCustomer, currentTime + 1.0, arr[4])); 
+                    // add done log
                     
                   
                 } else if (server.isWaitingAvail()) { // if waiting spot is availble
                     server = new Server(server.getServing(), currentCustomer);
-                    Event wait = new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[1]); // wait
-                    Event served = new Event(currentCustomer, server.getNextServiceTime(), arr[2]); // serve
+                    Event wait = new Event(currentCustomer, currentTime, arr[1]); 
+                    // add wait log
+                    double serviceTime = server.getNextServiceTime();
+                    Event served = new Event(currentCustomer, serviceTime, arr[2]); 
+                    // add serve serve
+                    Event done = new Event(currentCustomer, serviceTime + 1.0, arr[4]);
                     eventLog.add(wait); // add waits log
                     eventLog.add(served); // add when it will be served log
-                    eventLog.add(new Event(currentCustomer, server.getNextServiceTime() + 1.0, arr[4])); // add when it will be done log
+                    eventLog.add(done); 
+                    // add when it will be done log
                     
                     // update waiting time
                     double waitTime = served.getTime() - wait.getTime();
                     totalWaitingTime += waitTime;
                 } else { // leave
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[3])); // add leave log
+                    eventLog.add(new Event(currentCustomer, currentTime, arr[3])); // add leave log
                 }
             }
         }
