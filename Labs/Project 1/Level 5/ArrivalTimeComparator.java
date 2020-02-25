@@ -1,5 +1,5 @@
 /**
- * Event time comparator 
+ * Event time comparator. 
  * Used to compare two events
  * @author Lee Yan Cheng
  */
@@ -9,9 +9,9 @@ import java.util.Comparator;
 public class ArrivalTimeComparator implements Comparator<Customer> {
   
     /**
-     * <p> Overriden compare method that compares customers time of arrival </p>
-     * @param Customer c1,
-     * @param Customer c2
+     * <p> Overriden compare method that compares customers time of arrival. </p>
+     * @param c1 first customer
+     * @param c2 second customer that will be compared to first customer
      * @return returns 1 if c1 is later than c2, 0 if same and -1 if earlier
      */  
     @Override

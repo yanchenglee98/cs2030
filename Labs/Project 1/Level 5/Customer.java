@@ -5,41 +5,41 @@
  */
 
 public class Customer {
-    private final int ID;
+    private final int iD;
     private final double timeOfArrival;
 
     /**
-     * Constructer for Customer
-     * @param ID the customer's ID
+     * Constructer for Customer.
+     * @param iD the customer's ID
      * @param timeOfArrival the customers time of ar
      */
-    public Customer(int ID, double timeOfArrival) {
-        this.ID = ID;
+    public Customer(int iD, double timeOfArrival) {
+        this.iD = iD;
         this.timeOfArrival = timeOfArrival;
     }
 
     /**
-     * <p> Returns customer's time of arrival </p>
-     * @return the timeOfArrival
+     * <p> Returns customer's time of arrival. </p>
+     * @return double the timeOfArrival
      */
     public double getTimeOfArrival() {
         return timeOfArrival;
     }
 
     /**
-     * <p> Returns customer's ID </p>
-     * @return cusomter's ID
+     * <p> Returns customer's ID. </p>
+     * @return int cusomter's ID
      */
     public int getID() {
-        return ID;
+        return iD;
     }
     
     /**
-     * <p> Returns a string representation of a customer </p>
-     * @return String containg the customer's ID and time of arrival
+     * <p> Returns a string representation of a customer. </p>
+     * @return String contains the customer's ID and time of arrival
      */
     @Override
     public String toString() {
-        return String.format("%.3f %d", timeOfArrival, ID);        
+        return String.format("%.3f %d", timeOfArrival, iD);        
     }
 }

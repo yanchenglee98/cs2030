@@ -13,7 +13,7 @@ public class Shop {
     /**
      * Opens the shop for business, allowing customers to enter. 
      * Prints out events in chronological order.
-     * @param PriorityQueue<Customer> queue
+     * @param queue An priority queue of customers in chronological order
      */
     public static void open(PriorityQueue<Customer> queue) {
         Iterator<Customer> it = queue.iterator(); // create iterator object to iterate through queue
@@ -35,25 +35,29 @@ public class Shop {
 
         while (it.hasNext()) {
             Customer currentCustomer = queue.poll();
-
+            //update server when currentCustomer timeofarrival > the server nextservicetime
             if (server.getServing() != null && currentCustomer.getTimeOfArrival() >= (server.getNextServiceTime())) { 
-                // update server when currentCustomer timeofarrival is more than the server nextservicetime
+                
                 if (server.getWaiting() == null) { 
-                    // if server has served finished its serving customer, immediately serve currentCustomer
+                    //if server has finished serving customer, immediately serve currentCustomer
                     server = new Server(currentCustomer);
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2])); // add served log
-                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival() + 1.0, arr[4])); // add done log
+                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2])); 
+                    // add served log
+                    eventLog.add(new Event(currentCustomer, currentCustomer.getTimeOfArrival() + 1.0, arr[4]));
+                    // add done log
 
                 } else {
                     if (currentCustomer.getTimeOfArrival() >= server.getNextServiceTime() + 1.0) { 
-                        // if server has served both serving and waiting customers when currentCustomer arrives
+                        // if server has served both serving and waiting customers
+                        // when currentCustomer arrives
                         server = new Server(currentCustomer);
                         Event served = new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[2]); 
                         // serve immediately
                         eventLog.add(served); // add when it will be served log
                         eventLog.add(new Event(currentCustomer, server.getNextServiceTime(), arr[4])); 
                         // add when it will be done log
-                    } else { // if server still serving waiting customer when current customer arrives
+                    } else { 
+                        // if server still serving waiting customer when current customer arrives
                         server = new Server(server.getWaiting(), currentCustomer, server.getNextServiceTime());
                         Event wait = new Event(currentCustomer, currentCustomer.getTimeOfArrival(), arr[1]); // wait
                         Event served = new Event(currentCustomer, server.getNextServiceTime(), arr[2]); // serve

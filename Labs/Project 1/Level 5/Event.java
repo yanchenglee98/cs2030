@@ -11,10 +11,10 @@ public class Event {
     private final States state;
 
     /**
-     * Constructer for Event
-     * @param Customer the customer
-     * @param Time time of event
-     * @param States the state of event
+     * Constructer for Event.
+     * @param customer the customer
+     * @param time time of event
+     * @param states the state of event
      */
     public Event(Customer customer, double time, States states) {
         this.customer = customer;
@@ -23,40 +23,40 @@ public class Event {
     }
 
     /**
-     * <p> Returns event time </p>
-     * @return event time
+     * <p> Returns event time. </p>
+     * @return double event time
      */
     public double getTime() {
         return time;
     }
 
     /**
-     * <p> Returns ID of customer linked to the event </p>
-     * @return cusomter's ID
+     * <p> Returns ID of customer linked to the event. </p>
+     * @return int cusomter's ID
      */
     public int getID() {
         return customer.getID();
     }
 
     /**
-     * <p> Returns the state of the event </p>
-     * @return event state
+     * <p> Returns the state of the event. </p>
+     * @return String event state
      */
     public String getState() {
         return state.getState();
     }
 
     /**
-     * <p> Returns event's state ID, used for comparison </p>
-     * @return state ID
+     * <p> Returns event's state ID, used for comparison. </p>
+     * @return int state ID
      */
     public int getStateID() {
         return state.getStateID();
     }
 
     /**
-     * <p> Returns a string representaion of an event </p>
-     * @return string containg the time, customer ID and its state
+     * <p> Returns a string representaion of an event. </p>
+     * @return String contains the time, customer ID and its state
      */
     @Override 
     public String toString() {

@@ -18,9 +18,9 @@ public enum States {
     private final int stateID;
 
     /**
-     * Constructer for cEvent
-     * @param String the state in string format
-     * @param StateID ID of state
+     * Constructer for States.
+     * @param state the state in string format
+     * @param stateID ID of the state
      */
     States(String state, int stateID) {
         this.state = state;
@@ -28,16 +28,16 @@ public enum States {
     }
 
     /**
-     * <p> Returns state in string format </p>
-     * @return state
+     * <p> Returns state in string format. </p>
+     * @return String state
      */
     public String getState() {
         return state;
     }
 
     /**
-     * <p> Returns state ID </p>
-     * @return state ID
+     * <p> Returns state ID. </p>
+     * @return int state ID
      */
     public int getStateID() {
         return stateID;
