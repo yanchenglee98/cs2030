@@ -8,10 +8,10 @@
  */
 
 public class Cruise {
-    protected final String ID;
-    protected final int timeOfArrival;
-    protected final int numberOfLoader;
-    protected final int serviceTime;
+    private final String ID;
+    private final int timeOfArrival;
+    private final int numberOfLoader;
+    private final int serviceTime;
 
     /**
      * Constructor for Cruise
