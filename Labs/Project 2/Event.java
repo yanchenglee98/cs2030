@@ -95,11 +95,14 @@ public class Event {
     public String toString() {
        
         if (state.getState() == "served") {
-            return String.format("%.3f %d %s by %d", time, customer.getID(), state.getState(), server);
+            return String.format("%.3f %d %s by %d",
+                    time, customer.getID(), state.getState(), server);
         } else if (state.getState() == "waits") {
-            return String.format("%.3f %d %s to be served by %d", time, customer.getID(), state.getState(), server);
+            return String.format("%.3f %d %s to be served by %d",
+                    time, customer.getID(), state.getState(), server);
         } else if (state.getState() == "done") {
-            return String.format("%.3f %d %s serving by %d", time, customer.getID(), state.getState(), server);
+            return String.format("%.3f %d %s serving by %d",
+                    time, customer.getID(), state.getState(), server);
         }
 
         return String.format("%.3f %d %s", time, customer.getID(), state.getState());

@@ -76,9 +76,11 @@ public class Shop {
 
             if (served) { // if a server available to server customer
                 // add served log
-                eventLog.add(new Event(currentCustomer, currentTime, States.SERVED, server.getServerID()));
+                eventLog.add(new
+                        Event(currentCustomer, currentTime, States.SERVED, server.getServerID()));
                 // update server, assuming service time is 1.0
-                servers.set(server.getServerID() - 1, new Server(currentCustomer, 1.0, server.getServerID()));
+                servers.set(server.getServerID() - 1, new
+                        Server(currentCustomer, 1.0, server.getServerID()));
             }
             
             if (!served) {  // if its not served, check for waiting space
@@ -93,9 +95,13 @@ public class Shop {
 
                 if (wait) { // if there is waiting space for one of the servers
                     // simply add wait log
-                    eventLog.add(new Event(currentCustomer, currentTime, States.WAITS, server.getServerID()));
+                    eventLog.add(new
+                            Event(currentCustomer, currentTime,
+                            States.WAITS, server.getServerID()));
                     // update server
-                    Server updated = new Server(server.getServing(), currentCustomer, server.getNextServiceTime(), server.getServerID());
+                    Server updated = new
+                            Server(server.getServing(), currentCustomer,
+                            server.getNextServiceTime(), server.getServerID());
                     servers.set(server.getServerID() - 1, updated);
                 }
             }

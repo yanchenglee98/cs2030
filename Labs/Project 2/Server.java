@@ -34,7 +34,7 @@ public class Server {
     public Server(Customer serving, double serviceTime, int serverID) {
         this.serving = serving;
         this.waiting = null;
-        this.nextServiceTime = serving.getTimeOfArrival() + serviceTime; // assuming a service time of 1.0
+        this.nextServiceTime = serving.getTimeOfArrival() + serviceTime;
         this.serverID = serverID;
     }
 
@@ -43,7 +43,8 @@ public class Server {
      * NOTE for this constructor, nextServiceTime is set by user
      * @param serving customer that is being served
      * @param waiting customer that is waiting to be served
-     * @param nextServiceTime next service time of server, do note this sets the nextServiceTime of server
+     * @param nextServiceTime next service time of server,
+     *                        do note this sets the nextServiceTime of server
      * @param serverID unique ID of server
      */
     public Server(Customer serving, Customer waiting, double nextServiceTime, int serverID) {
@@ -65,28 +66,36 @@ public class Server {
             return this;
         } else if (currentTime >= nextServiceTime) {
             if (waiting == null) {
-                eventLog.add(new Event(this.serving, this.nextServiceTime, States.DONE, this.serverID)); // add done log
+                // add done log
+                eventLog.add(new
+                        Event(this.serving, this.nextServiceTime, States.DONE, this.serverID));
                 return new Server(this.serverID); // server is now idle
             } else {
                 // add done log of previous customer
-                eventLog.add(new Event(this.serving, this.nextServiceTime, States.DONE, this.serverID));
+                eventLog.add(new
+                        Event(this.serving, this.nextServiceTime, States.DONE, this.serverID));
                 // add served log of waiting customer
-                eventLog.add(new Event(this.waiting, this.nextServiceTime, States.SERVED, this.serverID));
+                eventLog.add(new
+                        Event(this.waiting, this.nextServiceTime, States.SERVED, this.serverID));
                 // update total waiting time
                 Event.setTotalWaitingTime(this.nextServiceTime - this.waiting.getTimeOfArrival());
                 // server now serving waiting; assume service time of 1.0
-                Server update = new Server(this.waiting, null, this.nextServiceTime + 1.0, this.serverID);
+                Server update = new
+                        Server(this.waiting, null, this.nextServiceTime + 1.0, this.serverID);
 
                 // corner case where at current time both serving and waiting are served finished
+                // need to check that after 1st update if still needs to be updated
                 if (currentTime >= update.getNextServiceTime()) {
                     // add done log of waiting customer
-                    eventLog.add(new Event(update.serving, update.nextServiceTime, States.DONE, this.serverID));
+                    eventLog.add(new
+                            Event(update.serving, update.nextServiceTime,
+                            States.DONE, this.serverID));
                     update = new Server(this.serverID);
                 }
 
                 return update;
             }
-        } else {
+        } else { // current time < next service time then don't update
             return this;
         }
     }
