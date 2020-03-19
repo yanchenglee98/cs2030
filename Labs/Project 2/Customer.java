@@ -9,9 +9,9 @@ public class Customer {
     private final double timeOfArrival;
 
     /**
-     * Constructer for Customer.
+     * Constructor for Customer.
      * @param iD the customer's ID
-     * @param timeOfArrival the customers time of ar
+     * @param timeOfArrival the customers time of arrival
      */
     public Customer(int iD, double timeOfArrival) {
         this.iD = iD;
@@ -28,7 +28,7 @@ public class Customer {
 
     /**
      * <p> Returns customer's ID as an int. </p>
-     * @return cusomter's ID
+     * @return customer's ID
      */
     public int getID() {
         return iD;

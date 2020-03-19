@@ -19,6 +19,7 @@ public class Shop {
     public static void open() {
         Scanner sc = new Scanner(System.in);
 
+        // number of servers as input by user
         int numOfServers = sc.nextInt();
 
         ArrayList<Server> servers = new ArrayList<>(numOfServers); // list of servers
@@ -28,7 +29,7 @@ public class Shop {
             servers.add(new Server(i));
         }
         
-        // initialise priorityqueue with arrival time comparator object
+        // initialise priority queue with arrival time comparator object
         PriorityQueue<Customer> queue = new PriorityQueue<>(new ArrivalTimeComparator());
         
         int idCounter = 0; // ID to track number of customers
@@ -48,10 +49,12 @@ public class Shop {
             eventLog.add(log);
         }
 
+        // iterate through customer queue
         while (it.hasNext()) {
             Customer currentCustomer = queue.poll();
             double currentTime = currentCustomer.getTimeOfArrival();
 
+            // flags to determine customer's status
             boolean served = false;
             boolean wait = false;
             boolean leaves = true;
@@ -63,6 +66,7 @@ public class Shop {
                 servers.set(i, s);
             }
 
+            // check for any idle server
             for (int i = 0; i < numOfServers; i++) {
                 Server s = servers.get(i);
 

@@ -88,7 +88,7 @@ public class Event {
     }
 
     /**
-     * <p> Returns a string representaion of an event. </p>
+     * <p> Returns a string representation of an event. </p>
      * @return displays the time, customer ID and its state
      */
     @Override 

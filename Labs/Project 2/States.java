@@ -37,7 +37,7 @@ public enum States {
     private final int stateID;
 
     /**
-     * Constructer for States.
+     * Constructor for States.
      * @param state the state in string format
      * @param stateID ID of the state
      */

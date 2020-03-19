@@ -9,7 +9,7 @@ import java.util.Comparator;
 public class EventTimeComparator implements Comparator<Event> {
     
     /**
-     * <p> Overriden compare method that compares event times, ID, State. </p>
+     * <p> Overridden compare method that compares event times, ID, State. </p>
      * @param e1 first event
      * @param e2 second event that will be compared to e1
      * @return returns 1 if e1 is larger than e2, 0 if same and -1 if smaller

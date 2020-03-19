@@ -2,7 +2,7 @@ import java.util.PriorityQueue;
 
 /**
  * Server class.
- * Contains serving customer, waiting customer and next service time.
+ * Contains serving customer, waiting customer ,next service time, unique ID
  * @author Lee Yan Cheng
  */
 
@@ -65,12 +65,20 @@ public class Server {
         if (this.isIdle()) {
             return this;
         } else if (currentTime >= nextServiceTime) {
+            // when current time exceeds next service time, update server
+
+            // 1st case: when there is no waiting customer
+            // previous customer is served finished
             if (waiting == null) {
                 // add done log
                 eventLog.add(new
                         Event(this.serving, this.nextServiceTime, States.DONE, this.serverID));
                 return new Server(this.serverID); // server is now idle
             } else {
+                // 2nd case: when there is a waiting customer
+                // previous customer is served finish
+                // thus waiting customer will be served
+
                 // add done log of previous customer
                 eventLog.add(new
                         Event(this.serving, this.nextServiceTime, States.DONE, this.serverID));
@@ -84,8 +92,11 @@ public class Server {
                         Server(this.waiting, null, this.nextServiceTime + 1.0, this.serverID);
 
                 // corner case where at current time both serving and waiting are served finished
-                // need to check that after 1st update if still needs to be updated
+                // need to check that after 1st update if server needs to be updated again
                 if (currentTime >= update.getNextServiceTime()) {
+                    // if at current time, waiting customer is also served finish
+                    // need to update server again
+
                     // add done log of waiting customer
                     eventLog.add(new
                             Event(update.serving, update.nextServiceTime,
@@ -117,7 +128,7 @@ public class Server {
     }
 
     /**
-     * <p> returns the waiting cusomter if there is one. </p>
+     * <p> returns the waiting customer if there is one. </p>
      * @return returns customer on waiting list
      */
     public Customer getWaiting() {
@@ -125,7 +136,7 @@ public class Server {
     }
 
     /**
-     * <p> returns the served cusomter if there is one. </p>
+     * <p> returns the served customer if there is one. </p>
      * @return returns customer that is currently being served
      */
     public Customer getServing() {
@@ -157,7 +168,7 @@ public class Server {
         if (serving != null) {
             return "serving:" + serving + " waiting: " + waiting + " next: " + nextServiceTime;
         } else {
-            return "Server availble";
+            return "Server available";
         }
     }
 }
