@@ -1,10 +1,10 @@
+import java.util.Comparator;
+
 /**
  * Event time comparator.
  * Used to compare two events.
  * @author Lee Yan Cheng
  */
-
-import java.util.Comparator;
 
 public class EventTimeComparator implements Comparator<Event> {
     

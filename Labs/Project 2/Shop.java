@@ -1,14 +1,14 @@
-/**
- * Shop class. 
- * Manages influx of customers and keeps an event log. 
- * 
- * @author Lee Yan Cheng
- */
-
 import java.util.PriorityQueue;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * Shop class.
+ * Manages influx of customers and keeps an event log.
+ *
+ * @author Lee Yan Cheng
+ * */
 
 public class Shop {
     
@@ -78,7 +78,7 @@ public class Shop {
                 }
             }
 
-            if (served) { // if a server available to server customer
+            if (served) { // if a server is available to serve customer
                 // add served log
                 eventLog.add(new
                         Event(currentCustomer, currentTime, States.SERVED, server.getServerID()));
@@ -126,16 +126,16 @@ public class Shop {
         while (!eventLog.isEmpty()) {
             Event event = eventLog.poll();
 
-            if (event.getState() == "served") {
+            if (event.getState().equals("served")) {
                 served++;
-            } else if (event.getState() == "leaves") {
+            } else if (event.getState().equals("leaves")) {
                 leave++;
             }
 
             System.out.println(event);
         }
 
-        double averageWaitingTime = (Event.totalWaitingTime / (double) served);
+        double averageWaitingTime = (Event.getTotalWaitingTime() / (double) served);
 
         String stats = String.format("[%.3f %d %d]", averageWaitingTime, served, leave);
 

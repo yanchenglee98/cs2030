@@ -1,9 +1,9 @@
-import java.util.Scanner;
-import java.util.PriorityQueue;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-
+/**
+ * Main class.
+ * Serves as the driver class.
+ * Used to open up the shop..
+ * @author Lee Yan Cheng
+ */
 
 public class Main {
 

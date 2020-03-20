@@ -10,7 +10,7 @@ public class Event {
     private final double time;
     private final States state;
     private final int server;
-    public static double totalWaitingTime = 0.0;
+    private static double totalWaitingTime = 0.0;
 
     /**
      * Constructor for Event.
@@ -49,7 +49,7 @@ public class Event {
 
     /**
      * <p> Returns ID of customer linked to the event. </p>
-     * @return cusomter's ID that is linked to the event
+     * @return customer's ID that is linked to the event
      */
     public int getID() {
         return customer.getID();
@@ -94,13 +94,13 @@ public class Event {
     @Override 
     public String toString() {
        
-        if (state.getState() == "served") {
+        if (state.getState().equals("served")) {
             return String.format("%.3f %d %s by %d",
                     time, customer.getID(), state.getState(), server);
-        } else if (state.getState() == "waits") {
+        } else if (state.getState().equals("waits")) {
             return String.format("%.3f %d %s to be served by %d",
                     time, customer.getID(), state.getState(), server);
-        } else if (state.getState() == "done") {
+        } else if (state.getState().equals("done")) {
             return String.format("%.3f %d %s serving by %d",
                     time, customer.getID(), state.getState(), server);
         }

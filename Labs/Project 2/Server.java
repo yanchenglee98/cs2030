@@ -55,8 +55,7 @@ public class Server {
     }
 
     /**
-     * Constructor for Server.
-     * NOTE for this constructor, nextServiceTime is set by user
+     * Updates the server with the current time.
      * @param currentTime the current time
      * @param eventLog event log to be updated when the server is updated
      * @return returns an updated server
