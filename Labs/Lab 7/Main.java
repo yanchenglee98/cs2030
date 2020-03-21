@@ -1,6 +1,5 @@
 import java.util.stream.IntStream;
 import java.util.OptionalInt;
-import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.IntSummaryStatistics;
 
@@ -34,16 +33,11 @@ public class Main {
     }
 
     public static int gcd(int m, int n) {
-        int larger = Math.max(m, n);
-        int smaller = Math.min(m, n);
-
-        Pair pair = new Pair(larger, smaller);
-
-        return Stream.iterate(pair, x -> x.second != 0, y -> new Pair(y.second, y.first % y.second)).reduce(pair, (x, y) -> y).second;
+        return Stream.iterate(new Pair(Math.max(m, n), Math.min(m, n)), x -> x.second != 0, y -> new Pair(y.second, y.first % y.second)).reduce(new Pair(Math.max(m, n), Math.min(m, n)), (x, y) -> y).second;
     }
 
     public static long countRepeats(int... array) {
-        IntStream pipeline = Arrays.stream(array);
+        IntStream pipeline = IntStream.of(array);
         return pipeline.mapToObj(x -> new Pair(x, 0))
             .reduce((p1, p2) -> (p1.first == p2.first)
                     ? (p1.isDupe
@@ -97,9 +91,9 @@ public class Main {
                 return String.format("max:%d min:%d count:%d total:%d value:%d", max, min, count, total, value);
             }
         }
+ 
 
-
-        Stats stats = stream.map(x -> new Stats(x)).reduce((x, y)-> x.update(y)).orElse(new Stats(0));
+        Stats stats = stream.map(Stats::new).reduce(Stats::update).orElse(new Stats(0));
 
         return stats.count==0?0:((stats.max==stats.min)?0:(((double) stats.total/stats.count) - stats.min)/ (double) (stats.max - stats.min));
     }
