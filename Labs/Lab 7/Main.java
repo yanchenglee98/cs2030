@@ -5,13 +5,14 @@ import java.util.stream.Stream;
 import java.util.IntSummaryStatistics;
 
 class Pair {
-    int first;
-    int second;
-    boolean isDupe;
+    final int first;
+    final int second;
+    final boolean isDupe;
 
     Pair(int first, int second) {
         this.first = first;
         this.second = second;
+        this.isDupe = false;
     }
 
     Pair(int first, int second, boolean isDupe) {
@@ -61,15 +62,46 @@ public class Main {
 
     public static double normalizedMean(Stream<Integer> stream) {
        class Stats {
-            int max = Integer.MIN_VALUE;
-            int min = Integer.MAX_VALUE;
-            int count = 0;
+            final int max;
+            final int min;
+            final int count;
+            final int total;
+            final int value;
+
+            Stats(int value) {
+                max = value;
+                min = value;
+                count = 1;
+                total = value;
+                this.value = value;
+            }
+
+            Stats(int max, int min, int count, int total) {
+                this.max = max;
+                this.min = min;
+                this.count = count;
+                this.total = total;
+                value = 0;
+            }
+
+            public Stats update(Stats s1) {
+                int newMax = Math.max(this.max, s1.max);
+                int newMin = Math.min(this.min, s1.min);
+                int count = this.count + 1;
+                int total = this.total + s1.total;
+
+                return new Stats(newMax, newMin, count, total);
+            }
+
+            public String toString() {
+                return String.format("max:%d min:%d count:%d total:%d value:%d", max, min, count, total, value);
+            }
         }
 
-        Stats stats = new Stats();
-        double total = (double) stream.map(x -> {stats.max = Math.max(x, stats.max); return x;}).map(y -> {stats.min = Math.min(y, stats.min); return y;}).map(z -> {stats.count++; return z;}).reduce(0, (x, y)->x+y);
-        //System.out.println("total: "+total + " min: "+stats.min+" max: "+stats.max+" count: "+stats.count); 
-        return stats.count==0?0:((stats.max==stats.min)?0:((total/stats.count) - stats.min)/ (stats.max - stats.min));
+
+        Stats stats = stream.map(x -> new Stats(x)).reduce((x, y)-> x.update(y)).orElse(new Stats(0));
+
+        return stats.count==0?0:((stats.max==stats.min)?0:(((double) stats.total/stats.count) - stats.min)/ (double) (stats.max - stats.min));
     }
 
 }
